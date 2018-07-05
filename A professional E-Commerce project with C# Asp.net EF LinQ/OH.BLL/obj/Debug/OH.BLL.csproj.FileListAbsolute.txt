@@ -1,0 +1,9 @@
+E:\Projects\OiiO Haat\OH.BLL\bin\Debug\OH.BLL.dll
+E:\Projects\OiiO Haat\OH.BLL\bin\Debug\OH.BLL.pdb
+E:\Projects\OiiO Haat\OH.BLL\bin\Debug\OH.DAL.dll
+E:\Projects\OiiO Haat\OH.BLL\bin\Debug\OH.Utilities.dll
+E:\Projects\OiiO Haat\OH.BLL\bin\Debug\OH.DAL.pdb
+E:\Projects\OiiO Haat\OH.BLL\bin\Debug\OH.Utilities.pdb
+E:\Projects\OiiO Haat\OH.BLL\obj\Debug\OH.BLL.csprojResolveAssemblyReference.cache
+E:\Projects\OiiO Haat\OH.BLL\obj\Debug\OH.BLL.dll
+E:\Projects\OiiO Haat\OH.BLL\obj\Debug\OH.BLL.pdb

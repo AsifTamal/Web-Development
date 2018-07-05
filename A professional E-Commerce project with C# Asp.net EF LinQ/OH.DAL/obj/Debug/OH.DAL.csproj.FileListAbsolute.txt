@@ -1,0 +1,5 @@
+E:\Projects\OiiO Haat\OH.DAL\bin\Debug\OH.DAL.dll
+E:\Projects\OiiO Haat\OH.DAL\bin\Debug\OH.DAL.pdb
+E:\Projects\OiiO Haat\OH.DAL\obj\Debug\OH.DAL.dll
+E:\Projects\OiiO Haat\OH.DAL\obj\Debug\OH.DAL.pdb
+E:\Projects\OiiO Haat\OH.DAL\obj\Debug\OH.DAL.csprojResolveAssemblyReference.cache

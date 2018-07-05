@@ -1,0 +1,1116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22B5BECE-137B-4202-8CB1-5C8CE9309C70}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OH.Web</RootNamespace>
+    <AssemblyName>OH.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.5.7.123, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Resources\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="CkEditor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>CKEditorDLL\CkEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="CKEditor.NET, Version=3.6.4.0, Culture=neutral, PublicKeyToken=e379cdf2f8354999, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>CKEditorDLL\CKEditor.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMaps.LocationServices">
+      <HintPath>..\packages\GoogleMaps.LocationServices.0.9.8.5\lib\net40\GoogleMaps.LocationServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap">
+      <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.MSAjax">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.5.0.0\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.1.1\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AboutOiiOHaaT.aspx" />
+    <Content Include="Account\Manage.aspx" />
+    <Content Include="Account\OpenAuthProviders.ascx" />
+    <Content Include="Account\Register.aspx" />
+    <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="App_Themes\Default\accountDetails.html" />
+    <Content Include="App_Themes\Default\Account\bootstrap-theme.min.css" />
+    <Content Include="App_Themes\Default\Account\bootstrap.css" />
+    <Content Include="App_Themes\Default\Admin CSS\css\bootstrap-theme.css" />
+    <Content Include="App_Themes\Default\Admin CSS\css\bootstrap-theme.min.css" />
+    <Content Include="App_Themes\Default\Admin CSS\css\bootstrap.css" />
+    <Content Include="App_Themes\Default\Admin CSS\css\bootstrap.min.css" />
+    <Content Include="App_Themes\Default\Admin CSS\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Themes\Default\Admin CSS\js\bootstrap.js" />
+    <Content Include="App_Themes\Default\Admin CSS\js\bootstrap.min.js" />
+    <Content Include="App_Themes\Default\Admin CSS\js\npm.js" />
+    <Content Include="App_Themes\Default\AdminMenu\css\ie.css" />
+    <Content Include="App_Themes\Default\AdminMenu\css\nav.css" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\indicator.png" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\navBG.gif" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\navLeft.gif" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\navLeftIE.gif" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\navOverBG.gif" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\navOverBG2.gif" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\navOverLeft.gif" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\navRight.gif" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\subnavBG.png" />
+    <Content Include="App_Themes\Default\AdminMenu\fallback\subOverBG.png" />
+    <Content Include="App_Themes\Default\AdminMenu\js\jquery.js" />
+    <Content Include="App_Themes\Default\AdminMenu\js\modernizr.js" />
+    <Content Include="App_Themes\Default\AdminMenu\js\modernizr.js.txt" />
+    <Content Include="App_Themes\Default\css\bootstrap-theme.css" />
+    <Content Include="App_Themes\Default\css\bootstrap-theme.min.css" />
+    <Content Include="App_Themes\Default\css\bootstrap.css" />
+    <Content Include="App_Themes\Default\css\bootstrap.min.css" />
+    <Content Include="App_Themes\Default\css\font-awesome.css" />
+    <Content Include="App_Themes\Default\css\font-awesome.min.css" />
+    <Content Include="App_Themes\Default\css\gradient.css" />
+    <Content Include="App_Themes\Default\css\OH.Posting.css" />
+    <Content Include="App_Themes\Default\css\oiioStyle.css" />
+    <Content Include="App_Themes\Default\fonts\fontawesome-webfont.svg" />
+    <Content Include="App_Themes\Default\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="App_Themes\Default\fonts\MyriadPro-Light.svg" />
+    <Content Include="App_Themes\Default\fonts\MyriadPro-Regular.svg" />
+    <Content Include="App_Themes\Default\images\banner\1.jpg" />
+    <Content Include="App_Themes\Default\images\banner\2.jpg" />
+    <Content Include="App_Themes\Default\images\interface\bg05.png" />
+    <Content Include="App_Themes\Default\images\interface\bg8.png" />
+    <Content Include="App_Themes\Default\images\interface\bg9.png" />
+    <Content Include="App_Themes\Default\images\interface\bg_trns.png" />
+    <Content Include="App_Themes\Default\images\interface\bodyBg1.jpg" />
+    <Content Include="App_Themes\Default\images\interface\facebook.png" />
+    <Content Include="App_Themes\Default\images\interface\Haat-logo.png" />
+    <Content Include="App_Themes\Default\images\interface\leftarrow1.png" />
+    <Content Include="App_Themes\Default\images\interface\logo.png" />
+    <Content Include="App_Themes\Default\images\interface\logo2.png" />
+    <Content Include="App_Themes\Default\images\interface\paypal.png" />
+    <Content Include="App_Themes\Default\images\interface\paypal2.png" />
+    <Content Include="App_Themes\Default\images\interface\postadd_bg.png" />
+    <Content Include="App_Themes\Default\images\interface\rightarrow1.png" />
+    <Content Include="App_Themes\Default\images\interface\rightSidebar_bg1.png" />
+    <Content Include="App_Themes\Default\images\interface\rightSidebar_bg2.png" />
+    <Content Include="App_Themes\Default\images\interface\transfernt1.png" />
+    <Content Include="App_Themes\Default\images\interface\userpanelDivider1.png" />
+    <Content Include="App_Themes\Default\images\interface\xxlogo.png" />
+    <Content Include="App_Themes\Default\images\products\1.jpg" />
+    <Content Include="App_Themes\Default\images\products\10.jpg" />
+    <Content Include="App_Themes\Default\images\products\11.png" />
+    <Content Include="App_Themes\Default\images\products\12.png" />
+    <Content Include="App_Themes\Default\images\products\13.png" />
+    <Content Include="App_Themes\Default\images\products\2.jpg" />
+    <Content Include="App_Themes\Default\images\products\3.jpg" />
+    <Content Include="App_Themes\Default\images\products\4.jpg" />
+    <Content Include="App_Themes\Default\images\products\5.jpg" />
+    <Content Include="App_Themes\Default\images\products\6.jpg" />
+    <Content Include="App_Themes\Default\images\products\7.jpg" />
+    <Content Include="App_Themes\Default\images\products\8.jpg" />
+    <Content Include="App_Themes\Default\images\products\9.jpg" />
+    <Content Include="App_Themes\Default\index.html" />
+    <Content Include="App_Themes\Default\innerpage.html" />
+    <Content Include="App_Themes\Default\js\bootstrap.js" />
+    <Content Include="App_Themes\Default\js\bootstrap.min.js" />
+    <Content Include="App_Themes\Default\js\jcarousel.responsive.js" />
+    <Content Include="App_Themes\Default\js\jquery.jcarousel.min.js" />
+    <Content Include="App_Themes\Default\js\npm.js" />
+    <Content Include="App_Themes\Default\js\oiiojs.js" />
+    <Content Include="App_Themes\Default\manageAdd.html" />
+    <Content Include="App_Themes\Default\PostAddInformation.html" />
+    <Content Include="App_Themes\Default\signup.html" />
+    <Content Include="CKEditorDLL\CkEditor.dll" />
+    <Content Include="CKEditorDLL\CKEditor.NET.dll" />
+    <Content Include="CKEditorDLL\CKEditor.NET.pdb" />
+    <Content Include="CKEditorDLL\CkEditor.pdb" />
+    <Content Include="ckeditor\adapters\jquery.js" />
+    <Content Include="ckeditor\build-config.js" />
+    <Content Include="ckeditor\ckeditor.js" />
+    <Content Include="ckeditor\config.js" />
+    <Content Include="ckeditor\contents.css" />
+    <Content Include="ckeditor\lang\af.js" />
+    <Content Include="ckeditor\lang\ar.js" />
+    <Content Include="ckeditor\lang\bg.js" />
+    <Content Include="ckeditor\lang\bn.js" />
+    <Content Include="ckeditor\lang\bs.js" />
+    <Content Include="ckeditor\lang\ca.js" />
+    <Content Include="ckeditor\lang\cs.js" />
+    <Content Include="ckeditor\lang\cy.js" />
+    <Content Include="ckeditor\lang\da.js" />
+    <Content Include="ckeditor\lang\de.js" />
+    <Content Include="ckeditor\lang\el.js" />
+    <Content Include="ckeditor\lang\en-au.js" />
+    <Content Include="ckeditor\lang\en-ca.js" />
+    <Content Include="ckeditor\lang\en-gb.js" />
+    <Content Include="ckeditor\lang\en.js" />
+    <Content Include="ckeditor\lang\eo.js" />
+    <Content Include="ckeditor\lang\es.js" />
+    <Content Include="ckeditor\lang\et.js" />
+    <Content Include="ckeditor\lang\eu.js" />
+    <Content Include="ckeditor\lang\fa.js" />
+    <Content Include="ckeditor\lang\fi.js" />
+    <Content Include="ckeditor\lang\fo.js" />
+    <Content Include="ckeditor\lang\fr-ca.js" />
+    <Content Include="ckeditor\lang\fr.js" />
+    <Content Include="ckeditor\lang\gl.js" />
+    <Content Include="ckeditor\lang\gu.js" />
+    <Content Include="ckeditor\lang\he.js" />
+    <Content Include="ckeditor\lang\hi.js" />
+    <Content Include="ckeditor\lang\hr.js" />
+    <Content Include="ckeditor\lang\hu.js" />
+    <Content Include="ckeditor\lang\id.js" />
+    <Content Include="ckeditor\lang\is.js" />
+    <Content Include="ckeditor\lang\it.js" />
+    <Content Include="ckeditor\lang\ja.js" />
+    <Content Include="ckeditor\lang\ka.js" />
+    <Content Include="ckeditor\lang\km.js" />
+    <Content Include="ckeditor\lang\ko.js" />
+    <Content Include="ckeditor\lang\ku.js" />
+    <Content Include="ckeditor\lang\lt.js" />
+    <Content Include="ckeditor\lang\lv.js" />
+    <Content Include="ckeditor\lang\mk.js" />
+    <Content Include="ckeditor\lang\mn.js" />
+    <Content Include="ckeditor\lang\ms.js" />
+    <Content Include="ckeditor\lang\nb.js" />
+    <Content Include="ckeditor\lang\nl.js" />
+    <Content Include="ckeditor\lang\no.js" />
+    <Content Include="ckeditor\lang\pl.js" />
+    <Content Include="ckeditor\lang\pt-br.js" />
+    <Content Include="ckeditor\lang\pt.js" />
+    <Content Include="ckeditor\lang\ro.js" />
+    <Content Include="ckeditor\lang\ru.js" />
+    <Content Include="ckeditor\lang\si.js" />
+    <Content Include="ckeditor\lang\sk.js" />
+    <Content Include="ckeditor\lang\sl.js" />
+    <Content Include="ckeditor\lang\sq.js" />
+    <Content Include="ckeditor\lang\sr-latn.js" />
+    <Content Include="ckeditor\lang\sr.js" />
+    <Content Include="ckeditor\lang\sv.js" />
+    <Content Include="ckeditor\lang\th.js" />
+    <Content Include="ckeditor\lang\tr.js" />
+    <Content Include="ckeditor\lang\tt.js" />
+    <Content Include="ckeditor\lang\ug.js" />
+    <Content Include="ckeditor\lang\uk.js" />
+    <Content Include="ckeditor\lang\vi.js" />
+    <Content Include="ckeditor\lang\zh-cn.js" />
+    <Content Include="ckeditor\lang\zh.js" />
+    <Content Include="ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="ckeditor\plugins\icons.png" />
+    <Content Include="ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="ckeditor\samples\ajax.html" />
+    <Content Include="ckeditor\samples\api.html" />
+    <Content Include="ckeditor\samples\appendto.html" />
+    <Content Include="ckeditor\samples\assets\inlineall\logo.png" />
+    <Content Include="ckeditor\samples\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="ckeditor\samples\assets\sample.jpg" />
+    <Content Include="ckeditor\samples\assets\uilanguages\languages.js" />
+    <Content Include="ckeditor\samples\datafiltering.html" />
+    <Content Include="ckeditor\samples\divreplace.html" />
+    <Content Include="ckeditor\samples\index.html" />
+    <Content Include="ckeditor\samples\inlineall.html" />
+    <Content Include="ckeditor\samples\inlinebycode.html" />
+    <Content Include="ckeditor\samples\inlinetextarea.html" />
+    <Content Include="ckeditor\samples\jquery.html" />
+    <Content Include="ckeditor\samples\plugins\dialog\assets\my_dialog.js" />
+    <Content Include="ckeditor\samples\plugins\dialog\dialog.html" />
+    <Content Include="ckeditor\samples\plugins\enterkey\enterkey.html" />
+    <Content Include="ckeditor\samples\plugins\toolbar\toolbar.html" />
+    <Content Include="ckeditor\samples\plugins\wysiwygarea\fullpage.html" />
+    <Content Include="ckeditor\samples\readonly.html" />
+    <Content Include="ckeditor\samples\replacebyclass.html" />
+    <Content Include="ckeditor\samples\replacebycode.html" />
+    <Content Include="ckeditor\samples\sample.css" />
+    <Content Include="ckeditor\samples\sample.js" />
+    <Content Include="ckeditor\samples\tabindex.html" />
+    <Content Include="ckeditor\samples\uicolor.html" />
+    <Content Include="ckeditor\samples\uilanguages.html" />
+    <Content Include="ckeditor\samples\xhtmlstyle.html" />
+    <Content Include="ckeditor\skins\moono\dialog.css" />
+    <Content Include="ckeditor\skins\moono\dialog_ie.css" />
+    <Content Include="ckeditor\skins\moono\dialog_ie7.css" />
+    <Content Include="ckeditor\skins\moono\dialog_ie8.css" />
+    <Content Include="ckeditor\skins\moono\dialog_iequirks.css" />
+    <Content Include="ckeditor\skins\moono\editor.css" />
+    <Content Include="ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="ckeditor\skins\moono\editor_ie.css" />
+    <Content Include="ckeditor\skins\moono\editor_ie7.css" />
+    <Content Include="ckeditor\skins\moono\editor_ie8.css" />
+    <Content Include="ckeditor\skins\moono\editor_iequirks.css" />
+    <Content Include="ckeditor\skins\moono\icons.png" />
+    <Content Include="ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="ckeditor\skins\moono\images\close.png" />
+    <Content Include="ckeditor\skins\moono\images\hidpi\close.png" />
+    <Content Include="ckeditor\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="ckeditor\skins\moono\images\hidpi\lock.png" />
+    <Content Include="ckeditor\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="ckeditor\skins\moono\images\lock-open.png" />
+    <Content Include="ckeditor\skins\moono\images\lock.png" />
+    <Content Include="ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="ckeditor\styles.js" />
+    <Content Include="Contact.aspx" />
+    <Content Include="ContactPage.aspx" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\oiioStyle.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="ControlAdmin\AddGiverTracingWF.aspx" />
+    <Content Include="ControlAdmin\AdGiverTracingUpdateWF.aspx" />
+    <Content Include="ControlAdmin\AdminDefault.aspx" />
+    <Content Include="ControlAdmin\BrandWF.aspx" />
+    <Content Include="ControlAdmin\CategoryWF.aspx" />
+    <Content Include="ControlAdmin\ColorWF.aspx" />
+    <Content Include="ControlAdmin\CountryWF.aspx" />
+    <Content Include="ControlAdmin\DistrictWF.aspx" />
+    <Content Include="ControlAdmin\DivisionOrStateWF.aspx" />
+    <Content Include="ControlAdmin\MappingCategoryWF.aspx" />
+    <Content Include="ControlAdmin\MappingTableWF.aspx" />
+    <Content Include="ControlAdmin\MaterialAdminListWF.aspx" />
+    <Content Include="ControlAdmin\MaterialAdminWF.aspx" />
+    <Content Include="ControlAdmin\MaterialWF.aspx" />
+    <Content Include="ControlAdmin\ModelWF.aspx" />
+    <Content Include="ControlAdmin\OiiOOtherContentWF.aspx" />
+    <Content Include="ControlAdmin\PoliceStationWF.aspx" />
+    <Content Include="ControlAdmin\PostOfficeWF.aspx" />
+    <Content Include="ControlAdmin\ShowAdGiverTracingForRegisteredUserWF.aspx" />
+    <Content Include="ControlAdmin\ShowRegisteredUserWF.aspx" />
+    <Content Include="ControlAdmin\UrlWFListWF.aspx" />
+    <Content Include="ControlAdmin\UserGrpWF.aspx" />
+    <Content Include="ControlAdmin\UserInfoWF.aspx" />
+    <Content Include="ControlAdmin\UserPermissionWF.aspx" />
+    <Content Include="ControlAdmin\VisitorsInfoWF.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="DefaultInner.aspx" />
+    <Content Include="DetailPage.aspx" />
+    <Content Include="ErrorOccurs.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\LoginLogo.jpg" />
+    <Content Include="GoogleMaps.LocationServices.readme.txt" />
+    <Content Include="HRWebService.asmx" />
+    <Content Include="Image\FilledStar.gif" />
+    <Content Include="Image\MatImage\201503000010_1.jpg" />
+    <Content Include="Image\MatImage\201503000010_2.jpg" />
+    <Content Include="Image\MatImage\201503000010_3.jpg" />
+    <Content Include="Image\MatImage\201503000010_4.jpg" />
+    <Content Include="Image\MatImage\201503000011_1.jpg" />
+    <Content Include="Image\MatImage\201503000011_2.jpg" />
+    <Content Include="Image\MatImage\201503000011_3.jpg" />
+    <Content Include="Image\MatImage\201503000011_4.jpg" />
+    <Content Include="Image\MatImage\201503000012_1.JPG" />
+    <Content Include="Image\MatImage\201503000012_2.JPG" />
+    <Content Include="Image\MatImage\201503000012_3.jpg" />
+    <Content Include="Image\MatImage\201503000012_4.jpg" />
+    <Content Include="Image\MatImage\201503000012_5.jpg" />
+    <Content Include="Image\MatImage\201503000012_6.jpg" />
+    <Content Include="Image\MatImage\201503000012_7.JPG" />
+    <Content Include="Image\MatImage\201503000012_8.jpg" />
+    <Content Include="Image\MatImage\201503000012_9.jpg" />
+    <Content Include="Image\MatImage\201503000027_1.jpg" />
+    <Content Include="Image\MatImage\201503000027_2.jpg" />
+    <Content Include="Image\MatImage\201503000027_3.jpg" />
+    <Content Include="Image\MatImage\201503000027_4.jpg" />
+    <Content Include="Image\MatImage\201503000027_5.jpg" />
+    <Content Include="Image\MatImage\_1.jpg" />
+    <Content Include="Image\MatImage\_2.jpg" />
+    <Content Include="Image\MatImage\_3.jpg" />
+    <Content Include="Image\MatImage\_4.jpg" />
+    <Content Include="Image\MatTempImage\20150302171640000998553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302172043934661553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302172209393007553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302172315675325553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302182459018747553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302182459355980553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302182459519095553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302182459600152553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302191512732076553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302191512979254553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302191513154380553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302191513573673553325325.jpg" />
+    <Content Include="Image\MatTempImage\20150302200726984071553325325.png" />
+    <Content Include="Image\MatTempImage\20150302200736970021553325325.png" />
+    <Content Include="Image\MatTempImage\20150302200759153130553325325.png" />
+    <Content Include="Image\OtherContentImage\20150309170258007148553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150309170357595067553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310095816789057553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310100342631698553325325.png" />
+    <Content Include="Image\OtherContentImage\20150310102309506412553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310121855815612553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310121943716653553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310122634938179553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310122716957115553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310122727675070553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310123840748146553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150310123937090154553325325.png" />
+    <Content Include="Image\OtherContentImage\20150311114206078666553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150312152002183525553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315113143341901553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315113216355131553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315113245480876553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315113308952030553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315152032893153553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315152715099774553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315153238860502553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315153607875841553325325.png" />
+    <Content Include="Image\OtherContentImage\20150315153726060946553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150315174237167653553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150319124346328326553325325.jpg" />
+    <Content Include="Image\OtherContentImage\20150322151713899241553325325.jpg" />
+    <Content Include="Image\Star.gif" />
+    <Content Include="Image\WaitingStar.gif" />
+    <Content Include="LoginPage.aspx" />
+    <Content Include="ManageYourAds.aspx" />
+    <Content Include="MaterialAdGiverListWF.aspx" />
+    <Content Include="MaterialAdGiverWF.aspx" />
+    <Content Include="MaterialWF.aspx" />
+    <Content Include="MyAccountDetail.aspx" />
+    <Content Include="MyFavouriteWF.aspx" />
+    <Content Include="OtherContentDetailPage.aspx" />
+    <Content Include="OthersFromOiiOInner.aspx" />
+    <Content Include="packages.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Account\Web.config" />
+    <Content Include="DefaultMaster.Master" />
+    <Content Include="ControlAdmin\ControlAdminMaster.Master" />
+    <Content Include="App_Themes\Default\Admin CSS\css\bootstrap-theme.css.map" />
+    <Content Include="App_Themes\Default\Admin CSS\css\bootstrap.css.map" />
+    <Content Include="App_Themes\Default\Admin CSS\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Themes\Default\Admin CSS\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Themes\Default\Admin CSS\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Themes\Default\Admin CSS\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="App_Themes\Default\css\bootstrap-theme.css.map" />
+    <Content Include="App_Themes\Default\css\bootstrap.css.map" />
+    <Content Include="App_Themes\Default\fonts\fontawesome-webfont.eot" />
+    <Content Include="App_Themes\Default\fonts\fontawesome-webfont.ttf" />
+    <Content Include="App_Themes\Default\fonts\fontawesome-webfont.woff" />
+    <Content Include="App_Themes\Default\fonts\FontAwesome.otf" />
+    <Content Include="App_Themes\Default\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="App_Themes\Default\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="App_Themes\Default\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Themes\Default\fonts\MyriadPro-Light.eot" />
+    <Content Include="App_Themes\Default\fonts\MyriadPro-Light.ttf" />
+    <Content Include="App_Themes\Default\fonts\MyriadPro-Regular.eot" />
+    <Content Include="App_Themes\Default\fonts\MyriadPro-Regular.ttf" />
+    <Content Include="App_Themes\Default\less\bordered-pulled.less" />
+    <Content Include="App_Themes\Default\less\core.less" />
+    <Content Include="App_Themes\Default\less\fixed-width.less" />
+    <Content Include="App_Themes\Default\less\font-awesome.less" />
+    <Content Include="App_Themes\Default\less\icons.less" />
+    <Content Include="App_Themes\Default\less\larger.less" />
+    <Content Include="App_Themes\Default\less\list.less" />
+    <Content Include="App_Themes\Default\less\mixins.less" />
+    <Content Include="App_Themes\Default\less\path.less" />
+    <Content Include="App_Themes\Default\less\rotated-flipped.less" />
+    <Content Include="App_Themes\Default\less\spinning.less" />
+    <Content Include="App_Themes\Default\less\stacked.less" />
+    <Content Include="App_Themes\Default\less\variables.less" />
+    <Content Include="App_Themes\Default\scss\font-awesome.scss" />
+    <Content Include="App_Themes\Default\scss\_bordered-pulled.scss" />
+    <Content Include="App_Themes\Default\scss\_core.scss" />
+    <Content Include="App_Themes\Default\scss\_fixed-width.scss" />
+    <Content Include="App_Themes\Default\scss\_icons.scss" />
+    <Content Include="App_Themes\Default\scss\_larger.scss" />
+    <Content Include="App_Themes\Default\scss\_list.scss" />
+    <Content Include="App_Themes\Default\scss\_mixins.scss" />
+    <Content Include="App_Themes\Default\scss\_path.scss" />
+    <Content Include="App_Themes\Default\scss\_rotated-flipped.scss" />
+    <Content Include="App_Themes\Default\scss\_spinning.scss" />
+    <Content Include="App_Themes\Default\scss\_stacked.scss" />
+    <Content Include="App_Themes\Default\scss\_variables.scss" />
+    <Content Include="LoginMaster.Master" />
+    <Content Include="InnerMasterPage.Master" />
+    <Content Include="PostAnAdd.aspx" />
+    <Content Include="PrivacyAndPolicy.aspx" />
+    <Content Include="Resources\DefaultInnerPagelogFileWriting.txt" />
+    <Content Include="Resources\DefaultPagelogFileWriting.txt" />
+    <Content Include="Resources\DetailPagelogFileWriting.txt" />
+    <Content Include="Resources\DetailPageVisitorlogFileWriting.txt" />
+    <Content Include="Resources\StartPagelogFileWriting.txt" />
+    <Content Include="Resources\VisitorlogFileWriting.txt" />
+    <Content Include="SafetyTips.aspx" />
+    <Content Include="SearchWeb.aspx" />
+    <Content Include="SpotLightInner.aspx" />
+    <Content Include="WorkWithUsPage.aspx" />
+    <Content Include="ckeditor\CHANGES.md" />
+    <Content Include="ckeditor\LICENSE.md" />
+    <Content Include="ckeditor\README.md" />
+    <Content Include="ckeditor\samples\assets\posteddata.php" />
+    <Content Include="ckeditor\samples\sample_posteddata.php" />
+    <Content Include="ckeditor\skins\moono\readme.md" />
+    <Content Include="CKEditorDLL\CkEditor.dll.config" />
+    <None Include="Properties\PublishProfiles\OHAAT.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="ReportingPage.aspx" />
+    <Content Include="Resources\logFileWriting.txt" />
+    <Content Include="Scripts\AjaxControlToolkit.dll" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\WebForms\DetailsView.js" />
+    <Content Include="Scripts\WebForms\Focus.js" />
+    <Content Include="Scripts\WebForms\GridView.js" />
+    <Content Include="Scripts\WebForms\Menu.js" />
+    <Content Include="Scripts\WebForms\MenuStandards.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjax.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxApplicationServices.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxComponentModel.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxCore.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxGlobalization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxHistory.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxNetwork.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxSerialization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxTimer.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebForms.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebServices.js" />
+    <Content Include="Scripts\WebForms\SmartNav.js" />
+    <Content Include="Scripts\WebForms\TreeView.js" />
+    <Content Include="Scripts\WebForms\WebForms.js" />
+    <Content Include="Scripts\WebForms\WebParts.js" />
+    <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="UserRegistrationPage.aspx" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Bundle.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Site.Mobile.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutOiiOHaaT.aspx.cs">
+      <DependentUpon>AboutOiiOHaaT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AboutOiiOHaaT.aspx.designer.cs">
+      <DependentUpon>AboutOiiOHaaT.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.designer.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactPage.aspx.cs">
+      <DependentUpon>ContactPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactPage.aspx.designer.cs">
+      <DependentUpon>ContactPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\AddGiverTracingWF.aspx.cs">
+      <DependentUpon>AddGiverTracingWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\AddGiverTracingWF.aspx.designer.cs">
+      <DependentUpon>AddGiverTracingWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\AdGiverTracingUpdateWF.aspx.cs">
+      <DependentUpon>AdGiverTracingUpdateWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\AdGiverTracingUpdateWF.aspx.designer.cs">
+      <DependentUpon>AdGiverTracingUpdateWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\AdminDefault.aspx.cs">
+      <DependentUpon>AdminDefault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\AdminDefault.aspx.designer.cs">
+      <DependentUpon>AdminDefault.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\BrandWF.aspx.cs">
+      <DependentUpon>BrandWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\BrandWF.aspx.designer.cs">
+      <DependentUpon>BrandWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\CategoryWF.aspx.cs">
+      <DependentUpon>CategoryWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\CategoryWF.aspx.designer.cs">
+      <DependentUpon>CategoryWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\ColorWF.aspx.cs">
+      <DependentUpon>ColorWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\ColorWF.aspx.designer.cs">
+      <DependentUpon>ColorWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\ControlAdminMaster.Master.cs">
+      <DependentUpon>ControlAdminMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\ControlAdminMaster.Master.designer.cs">
+      <DependentUpon>ControlAdminMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\CountryWF.aspx.cs">
+      <DependentUpon>CountryWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\CountryWF.aspx.designer.cs">
+      <DependentUpon>CountryWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\DistrictWF.aspx.cs">
+      <DependentUpon>DistrictWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\DistrictWF.aspx.designer.cs">
+      <DependentUpon>DistrictWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\DivisionOrStateWF.aspx.cs">
+      <DependentUpon>DivisionOrStateWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\DivisionOrStateWF.aspx.designer.cs">
+      <DependentUpon>DivisionOrStateWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\MappingCategoryWF.aspx.cs">
+      <DependentUpon>MappingCategoryWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\MappingCategoryWF.aspx.designer.cs">
+      <DependentUpon>MappingCategoryWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\MappingTableWF.aspx.cs">
+      <DependentUpon>MappingTableWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\MappingTableWF.aspx.designer.cs">
+      <DependentUpon>MappingTableWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\MaterialAdminListWF.aspx.cs">
+      <DependentUpon>MaterialAdminListWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\MaterialAdminListWF.aspx.designer.cs">
+      <DependentUpon>MaterialAdminListWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\MaterialAdminWF.aspx.cs">
+      <DependentUpon>MaterialAdminWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\MaterialAdminWF.aspx.designer.cs">
+      <DependentUpon>MaterialAdminWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\MaterialWF.aspx.cs">
+      <DependentUpon>MaterialWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\MaterialWF.aspx.designer.cs">
+      <DependentUpon>MaterialWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\ModelWF.aspx.cs">
+      <DependentUpon>ModelWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\ModelWF.aspx.designer.cs">
+      <DependentUpon>ModelWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\OiiOOtherContentWF.aspx.cs">
+      <DependentUpon>OiiOOtherContentWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\OiiOOtherContentWF.aspx.designer.cs">
+      <DependentUpon>OiiOOtherContentWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\PoliceStationWF.aspx.cs">
+      <DependentUpon>PoliceStationWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\PoliceStationWF.aspx.designer.cs">
+      <DependentUpon>PoliceStationWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\PostOfficeWF.aspx.cs">
+      <DependentUpon>PostOfficeWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\PostOfficeWF.aspx.designer.cs">
+      <DependentUpon>PostOfficeWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\ShowAdGiverTracingForRegisteredUserWF.aspx.cs">
+      <DependentUpon>ShowAdGiverTracingForRegisteredUserWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\ShowAdGiverTracingForRegisteredUserWF.aspx.designer.cs">
+      <DependentUpon>ShowAdGiverTracingForRegisteredUserWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\ShowRegisteredUserWF.aspx.cs">
+      <DependentUpon>ShowRegisteredUserWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\ShowRegisteredUserWF.aspx.designer.cs">
+      <DependentUpon>ShowRegisteredUserWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\UrlWFListWF.aspx.cs">
+      <DependentUpon>UrlWFListWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\UrlWFListWF.aspx.designer.cs">
+      <DependentUpon>UrlWFListWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\UserGrpWF.aspx.cs">
+      <DependentUpon>UserGrpWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\UserGrpWF.aspx.designer.cs">
+      <DependentUpon>UserGrpWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\UserInfoWF.aspx.cs">
+      <DependentUpon>UserInfoWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\UserInfoWF.aspx.designer.cs">
+      <DependentUpon>UserInfoWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\UserPermissionWF.aspx.cs">
+      <DependentUpon>UserPermissionWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\UserPermissionWF.aspx.designer.cs">
+      <DependentUpon>UserPermissionWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAdmin\VisitorsInfoWF.aspx.cs">
+      <DependentUpon>VisitorsInfoWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAdmin\VisitorsInfoWF.aspx.designer.cs">
+      <DependentUpon>VisitorsInfoWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultInner.aspx.cs">
+      <DependentUpon>DefaultInner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultInner.aspx.designer.cs">
+      <DependentUpon>DefaultInner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultMaster.Master.cs">
+      <DependentUpon>DefaultMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultMaster.Master.designer.cs">
+      <DependentUpon>DefaultMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="DetailPage.aspx.cs">
+      <DependentUpon>DetailPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetailPage.aspx.designer.cs">
+      <DependentUpon>DetailPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HRWebService.asmx.cs">
+      <DependentUpon>HRWebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InnerMasterPage.Master.cs">
+      <DependentUpon>InnerMasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InnerMasterPage.Master.designer.cs">
+      <DependentUpon>InnerMasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="LoginMaster.Master.cs">
+      <DependentUpon>LoginMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginMaster.Master.designer.cs">
+      <DependentUpon>LoginMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPage.aspx.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginPage.aspx.designer.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageYourAds.aspx.cs">
+      <DependentUpon>ManageYourAds.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageYourAds.aspx.designer.cs">
+      <DependentUpon>ManageYourAds.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialAdGiverListWF.aspx.cs">
+      <DependentUpon>MaterialAdGiverListWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MaterialAdGiverListWF.aspx.designer.cs">
+      <DependentUpon>MaterialAdGiverListWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialAdGiverWF.aspx.cs">
+      <DependentUpon>MaterialAdGiverWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MaterialAdGiverWF.aspx.designer.cs">
+      <DependentUpon>MaterialAdGiverWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialWF.aspx.cs">
+      <DependentUpon>MaterialWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MaterialWF.aspx.designer.cs">
+      <DependentUpon>MaterialWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="MyAccountDetail.aspx.cs">
+      <DependentUpon>MyAccountDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyAccountDetail.aspx.designer.cs">
+      <DependentUpon>MyAccountDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyFavouriteWF.aspx.cs">
+      <DependentUpon>MyFavouriteWF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyFavouriteWF.aspx.designer.cs">
+      <DependentUpon>MyFavouriteWF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OtherContentDetailPage.aspx.cs">
+      <DependentUpon>OtherContentDetailPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OtherContentDetailPage.aspx.designer.cs">
+      <DependentUpon>OtherContentDetailPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OthersFromOiiOInner.aspx.cs">
+      <DependentUpon>OthersFromOiiOInner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OthersFromOiiOInner.aspx.designer.cs">
+      <DependentUpon>OthersFromOiiOInner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PostAnAdd.aspx.cs">
+      <DependentUpon>PostAnAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PostAnAdd.aspx.designer.cs">
+      <DependentUpon>PostAnAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrivacyAndPolicy.aspx.cs">
+      <DependentUpon>PrivacyAndPolicy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrivacyAndPolicy.aspx.designer.cs">
+      <DependentUpon>PrivacyAndPolicy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportingPage.aspx.cs">
+      <DependentUpon>ReportingPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportingPage.aspx.designer.cs">
+      <DependentUpon>ReportingPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SafetyTips.aspx.cs">
+      <DependentUpon>SafetyTips.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SafetyTips.aspx.designer.cs">
+      <DependentUpon>SafetyTips.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchWeb.aspx.cs">
+      <DependentUpon>SearchWeb.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchWeb.aspx.designer.cs">
+      <DependentUpon>SearchWeb.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="SpotLightInner.aspx.cs">
+      <DependentUpon>SpotLightInner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SpotLightInner.aspx.designer.cs">
+      <DependentUpon>SpotLightInner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="UserRegistrationPage.aspx.cs">
+      <DependentUpon>UserRegistrationPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserRegistrationPage.aspx.designer.cs">
+      <DependentUpon>UserRegistrationPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WorkWithUsPage.aspx.cs">
+      <DependentUpon>WorkWithUsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WorkWithUsPage.aspx.designer.cs">
+      <DependentUpon>WorkWithUsPage.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="OurPolicies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OH.BLL\OH.BLL.csproj">
+      <Project>{97d4b80f-11e5-4e14-87a9-7574046dfb79}</Project>
+      <Name>OH.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OH.DAL\OH.DAL.csproj">
+      <Project>{a95a2769-f93c-42d7-9057-c80d08b53047}</Project>
+      <Name>OH.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OH.Utilities\OH.Utilities.csproj">
+      <Project>{e5953d5f-20d6-4007-9990-267584638ac9}</Project>
+      <Name>OH.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>32681</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:32681/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
