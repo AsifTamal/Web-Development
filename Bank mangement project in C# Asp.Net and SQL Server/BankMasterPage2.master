@@ -1,0 +1,182 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="BankMasterPage2.master.cs" Inherits="BankMasterPage2" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+ <title>Bank Management System</title>   
+<style type="text/css" media="all">
+
+html{       
+background-color:#C0C0C0;
+ }
+
+body {  
+font-family:Georgia, "Times New Roman", Times, serif;
+background-color:aqua;
+background-repeat: repeat-y; 
+}
+
+.space{
+width:1330px;
+height:150px;
+margin-top:00px;
+margin-right:01px;
+background-color:forestgreen;
+bottom:100px;
+}
+a:link{
+color:#734A12;
+text-decoration:none;
+}
+
+#linkList {
+position:relative;
+background-color:gray;
+width: 150px;
+height:600px;
+font-size: 70%;
+top:-650px;
+}
+
+#linkList a, #linkList a:link, #linkList a:visited {
+color: #000;  
+}
+
+#linkList2 {
+padding-top: 5px;
+}
+
+#linkList a:hover {
+color:green;
+text-decoration: underline; 
+margin-bottom: 1px;
+}
+
+#linkList h3{background-color:#3D2B1F;
+ color: #92AC2D;
+}
+
+.otherlink{
+position:relative;
+left:20px;
+width: 90px;
+height:16px;
+}
+
+.space4{
+width: 1180px;
+height:600px;
+background-color:red;
+position:relative;
+left:150px;
+bottom:50px;
+
+
+}
+
+
+
+
+.right, .alignright { 
+float: right; 
+display: inline; 
+}
+
+.hover a:hover{
+text-decoration:underline;
+color:#DFFF00;
+}
+
+.hover1 a:hover{
+text-decoration:underline;
+color:#CD5C5C;
+}
+</style>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+    
+    
+
+
+
+
+
+
+
+<div class="space">
+
+    <div align="right" >
+&nbsp;
+<a href="#">Home</a>
+&nbsp;
+<a href="#">term of use</a>
+&nbsp;
+&nbsp;
+<a href="#">FAQ</a>
+&nbsp;
+<a href="#">Help center</a>
+&nbsp;
+<a href="#">Free clipart</a>
+&nbsp;
+<a href="#">Sample Site</a>
+</div>
+    <h3 style="text-align:left;position:relative;left:1px;top:.5px;font-size:50px;color:#80461B;">Welcome to Online Banking System</h3>
+
+
+
+
+
+<hr style="position:relative;left:2px;width:6px;height:5px;"></hr>
+   
+
+
+
+
+
+
+
+</div>
+        <div class="space4">
+            
+        
+<h3 style="font-size:50px;position:relative;
+left:19px;
+top:0px;color:#80461B;"></h3>
+        
+        
+  <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder2" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+
+        </div>
+
+
+
+<div id="linkList">
+
+   <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+      </div>
+
+
+<p class="right">
+ Inventory.com &nbsp; Design by <a href="#">Asiful Islam, Roll no.CE09044,3rd year 2nd semester,Dept of CSE,MBSTU.</a>
+</p>
+
+    </form>
+</body>
+</html>
+
+ 
+ 
