@@ -1,0 +1,74 @@
+﻿@model jQueryAjaxCrudMvc.Models.Employee
+
+@{
+    ViewBag.Title = "AddorEdit";
+    Layout = null;
+}
+
+
+
+@using (Html.BeginForm("AddorEdit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_restUrl = Url.Action("AddorEdit", "Employee", new { id = 0 }) }))//data-restUrl
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.EmployeeID)
+            @Html.HiddenFor(model => model.ImagePath)
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttribute = new { @class = "From-control" } })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Office, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Office, new { htmlAttribute = new { @class = "From-control" } })
+                        @Html.ValidationMessageFor(model => model.Office)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Position, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Position, new { htmlAttribute = new { @class = "From-control" } })
+                        @Html.ValidationMessageFor(model => model.Position)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Salary, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Salary, new { htmlAttribute = new { @class = "From-control" } })
+                        @Html.ValidationMessageFor(model => model.Salary)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ImagePath)
+                    <div class="col-md-10">
+                        @*@Html.EditorFor(model => model.ImagePath)
+                        @Html.ValidationMessageFor(model => model.ImagePath)*@
+                        <img src="@Url.Content(Model.ImagePath)" style="margin:10px" height="200" width="200" id="ImagePreview"/>
+                        <input type="file" name="ImageUplode" accept="image/jpeg, image/png, image/JPG, image/jpg" onchange="ShowImagePreview(this, document.getElementById('ImagePreview'))"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+       
+   

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<ul class="nav nav-tabs">
+    <li ><a data-toggle="tab" href="#firstTab">View all</a></li>
+    <li class="active"><a data-toggle="tab" href="#secondTab"> Add New</a></li>
+</ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in " id="firstTab" >@Html.Action("ViewAll")</div>
+        <div class="tab-pane fade in active" id="secondTab">@Html.Action("AddorEdit")</div>
+
+    </div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    }
+
