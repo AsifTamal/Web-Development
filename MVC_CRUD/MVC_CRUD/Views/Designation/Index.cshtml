@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    <style>
+        span.error {
+            display: block;
+            visibility: hidden;
+            color: red;
+            font-weight: bold;
+            font-size: 100%;
+        }
+    </style>
+
+}
+
+<h2> Designation</h2>
+<hr />
+<label id="showMessage" style="color: red; font-size: medium"></label>
+<div>
+    <input type="hidden" id="hdfDesignationId">
+    <div class="form-group">
+        <label class="col-form-label">Designation Name<span class="error">Name Is Required</span></label>
+        <input type="text" class="form-control" id="DesignationName" name="DesignationName">
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Department<span class="error">*</span></label>
+        <select type="text" class="form-control" id="Department" name="Department">
+            <option value="0">--select department--</option>
+        </select>
+
+    </div>
+
+    <div>
+        <input type="button" id="save" value="Save" class="btn btn-success">
+        <input type="button" id="update" value="Update" class="btn btn-success">
+        <input type="button" id="delete" value="Delete" class="btn btn-success">
+        <input type="button" id="clear" value="Clear" class="btn btn-success">
+    </div>
+</div>
+<hr />
+<div class="tablecontainer table-responsive">
+    <table id="DesignationTable" class="display" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Designation Id</th>
+                <th>Designation Name</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+        var designationTable;
+        $(document)
+            .ready(function () {
+                document.getElementById("showMessage").innerHTML = '';
+                $('#update').hide();
+                $('#delete').hide();
+             loadDesignation(0);
+                loadDepartment();
+            });
+
+
+   function loadDepartment(id) {
+            $.ajax({
+                url: '@Url.Action("GetDepartmentInfoForDropDown", "Designation")',
+                type: "get",
+                dataType: " JSON",
+                success: function(data) {
+                    $.each(data,
+                        function(key, value) {
+                            if (value.deptId === id) {
+                                $("#Department")
+                                    .append('<option value=' +
+                                        value.deptId +
+                                        ' selected >' +
+                                        value.deptName +
+                                        '</option>');
+                            } else {
+                                $("#Department")
+                                    .append('<option value=' +
+                                        value.deptId +
+                                        '>' +
+                                        value.deptName +
+                                        '</option>');
+                            }
+
+                        });
+                }
+            });
+        }
+
+        $('#save')
+         .click(function () {
+             var isValid = checkValidaion();
+             if (isValid) {
+                 var data = bindData();
+                 $.ajax({
+                     url: '@Url.Action("SaveDesignation", "Designation")',
+                     type: "POST",
+                     data: JSON.stringify(data),
+                     dataType: "JSON",
+                     contentType: "application/json",
+                     success: function (obj) {
+                         if (obj.status == true) {
+                             designationTable.ajax.reload();
+                             clearData();
+                         }
+                         document.getElementById("showMessage").innerHTML = obj.message;
+                     }
+                 });
+             }
+         });
+
+        function checkValidaion() {
+            var isValid = true;
+            if ($('#DesignationName').val().trim() === '') {
+                isValid = false;
+                $('#DesignationName').parent().find('span').css('visibility', 'visible');
+            } else {
+                $('#DesignationName').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Department').val().trim() == '0') {
+                isValid = false;
+                $('#Department').parent().find('span').css('visibility', 'visible');
+            } else {
+                $('#Department').parent().find('span').css('visibility', 'hidden');
+            }
+            return isValid;
+        }
+
+        function bindData() {
+            var data = {
+                DesignationName: $('#DesignationName').val(),
+                deptId: $('#Department option:selected').val()
+            }
+            return data;
+        }
+
+        function clearData() {
+            $('.form-control').val('');
+            loadDepartment(0);
+            document.getElementById("showMessage").innerHTML = '';
+            $('#update').hide();
+            $('#delete').hide();
+            $('#save').show();
+        }
+
+        $('#clear')
+           .click(function () {
+               clearData();
+           });
+
+        function loadDesignation() {
+            designationTable = $('#DesignationTable')
+                .DataTable({
+                    "ajax": {
+                        "url": '@Url.Action("GetDesignationInfo", "Designation")',
+                        "type": "get",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "DesignationId" },
+                        { "data": "DesignationName" },
+                        { "data": "deptName" }
+                    ]
+                });
+            $('#DesignationTable')
+                .on('click',
+                    'tr',
+                    function () {
+                        if ($(this).hasClass('selected')) {
+                            $(this).removeClass('selected');
+                        } else {
+                            designationTable.$('tr.selected').removeClass('selected');
+                            $(this).addClass('selected');
+                        }
+                        bindDataDesignationInfo(designationTable.row(this).data());
+                    });
+        }
+
+        function bindDataDesignationInfo(data) {
+            //column must be same as db table colomn
+            $('#hdfDesignationId').val(data.DesignationId);
+            $('#DesignationName').val(data.DesignationName);
+            loadDepartment(data.deptId);
+            $('#save').hide();
+            $('#update').show();
+            $('#delete').show();
+        }
+
+
+        $('#delete')
+         .click(function () {
+             if (confirm("Are you sure ?? ")) {
+                 var data = {
+                     //column must be same as db table colomn
+                     DesignationId: $('#hdfDesignationId').val()
+                 }
+                 $.ajax({
+                     url: '@Url.Action("DeleteDesignation", "Designation")',
+                     type: "POST",
+                     data: JSON.stringify(data),
+                     dataType: "JSON",
+                     contentType: "application/json",
+                     success: function (obj) {
+                         if (obj.status == true) {
+                             designationTable.ajax.reload();
+                             clearData();
+                         }
+                         document.getElementById("showMessage").innerHTML = obj.message;
+                     }
+                 });
+             }
+             return false;
+         });
+
+
+</script>
+}

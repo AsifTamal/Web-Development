@@ -1,0 +1,405 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    <style>
+        span.error {
+            display: block;
+            visibility: hidden;
+            color: red;
+            font-weight: bold;
+            font-size: 100%;
+        }
+    </style>
+}
+
+<h2> Employee</h2>
+<hr />
+<label id="showMessage" style="color: red; font-size: medium"></label>
+<div>
+    <input type="hidden" id="hdfEmployeeId">
+    @*<div class="form-group">
+            <label class="col-form-label">Employee Id</label>
+            <input type="text" class="form-control" id="EmployeeId" name="EmployeeId">
+        </div>*@
+    <div class="form-group">
+        <label class="col-form-label">Employee Name<span class="error">*</span></label>
+        <input type="text" class="form-control" id="EmployeeName" name="EmployeeName">
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Department<span class="error">*</span></label>
+        <select class="form-control" id="Department" name="Department">
+            <option value="0">select department</option>
+            @{
+                foreach (var info in ViewBag.DepartmentInfo)
+                {
+                    <option value="@info.deptId">@info.deptName</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Designation<span class="error">*</span></label>
+        <select class="form-control" id="Designation" name="Designation">
+            <option value="0">select designation</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Is Active</label>
+        <input checked="checked" class="form-check-input" id="IsActive" name="IsActive" type="checkbox" value="1" />
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Gender</label>
+
+        <input checked="checked" class="form-check-input" id="Gender" name="Gender" type="radio" value="Male" />Male
+        <input class="form-check-input" id="Gender" name="Gender" type="radio" value="Female" />Female
+    </div>
+    <div>
+        <input type="button" id="save" value="Save" class="btn btn-success">
+        <input type="button" id="update" value="Update" class="btn btn-success">
+        @*<input type="button" id="delete" value="Delete" class="btn btn-success">*@
+        <input type="button" id="clear" value="Clear" class="btn btn-success">
+    </div>
+</div>
+<hr />
+<div class="tablecontainer table-responsive">
+    <table id="EmployeeTable" class="display" cellspacing="0" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Employee Id</th>
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th>Designation</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        var empTable;
+        $(document).ready(function () {
+            $('#update').hide();
+            $('#delete').hide();
+            document.getElementById('showMessage').innerHTML = '';
+            loadEmployee();
+        });
+
+        function clearData() {
+            $('#Department').val(0);
+            $('#Designation').empty();
+            $('#EmployeeName').val('');
+            $('#hdfEmployeeId').val('');
+            //window.location.reload();
+            $('#update').hide();
+            $('#delete').hide();
+            $('#save').show();
+
+        }
+        //clear button
+        $('#clear').click(function () {
+            document.getElementById('showMessage').innerHTML = '';
+            clearData();
+        });
+        //designation load Start
+        $('#Department').on('change', function () {
+            loadDesignation(0);
+        });
+
+        function loadDesignation(id) {
+            $("#Designation").empty();
+            var deptId = $('#Department option:selected').val();
+            $.ajax({
+                url: '@Url.Action("GetDesignationByDeptId", "Employee")',
+                type: "POST",
+                data: { deptId: deptId },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    //$("#Designation").append('<option value="0">--Select Designation--</option>');
+                    $.each(data, function (key, value) {
+                        if (value.DesignationId === id) {
+                            $("#Designation").append('<option value=' + value.DesignationId + ' selected>' + value.DesignationName + '</option>');
+                        } else {
+                            $("#Designation").append('<option value=' + value.DesignationId + '>' + value.DesignationName + '</option>');
+                        }
+
+                    });
+                }
+            });
+        }
+        //designation load end
+        // Save employee starts
+        $('#save').click(function () {
+
+            var isValidData = checkValidation();
+            if (isValidData) {
+                var data = BindData();
+                $.ajax({
+                    url: '@Url.Action("SaveEmployee","Employee")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            empTable.destroy();
+                            clearData();
+                            loadEmployee();
+                            //empTable.ajax.reload();
+                            //loadEmployee();
+                            //clearData();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+        });
+        function checkValidation() {
+            var isValid = true;
+            if ($('#EmployeeName').val().trim() === '') {
+                isValid = false;
+                $('#EmployeeName').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#EmployeeName').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Department').val().trim() === '0') {
+                isValid = false;
+                $('#Department').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Department').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Designation').val().trim() === '0') {
+                isValid = false;
+                $('#Designation').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Designation').parent().find('span').css('visibility', 'hidden');
+            }
+            return isValid;
+        }
+        function BindData() {
+            var isActive;
+            if ($('#IsActive').prop("checked") === true) {
+                isActive = 1
+            }
+            else {
+                isActive = 0;
+            }
+
+
+            var data = {
+                DepartmentId: $('#Department option:selected').val(),
+                DesignationId: $('#Designation option:selected').val(),
+                EmployeeName: $('#EmployeeName').val(),
+                Gender: $('input[name="Gender"]:checked').val(),
+                IsActive: isActive
+            }
+            return data;
+        }
+        // Save employee end
+
+        function loadEmployee() {
+            empTable =
+                $('#EmployeeTable').DataTable({
+                    "ajax": {
+                        "url": '@Url.Action("GetEmployeeInfo", "Employee")',
+                        "type": "get",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        // employee get set class colomn name must be same
+                        { "data": "EmployeeId" },
+                        { "data": "EmployeeName" },
+                        { "data": "DepartmentName" },
+                        { "data": "DesignationName" },
+                        { "data": "Gender" },
+                        { "data": "Statuss", "class": "status" },
+                       {
+                           "data": "EmployeeId", "width": "50px", "render": function (data) {
+                               return '<a href="#" onClick="editData(' + data + ')">Edit</a>';
+                           }
+                       },
+                        {
+                            "data": "EmployeeId", "width": "50px", "render": function (data) {
+                                return '<a href="#" onClick="deleteData(' + data + ')">Delete</a>';
+                            }
+                        }
+                    ],
+                    "order": [[0, "desc"]]
+                });
+
+            $('#EmployeeTable').on('click', 'tr', function () {
+                //console.log(data);
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+
+                else {
+                    empTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+                // bindDataEmployeeInfo(empTable.row(this).data());
+
+            });
+
+        }
+
+        function editData(id) {
+            //alert(id);
+            var data = { EmployeeId: id };
+            $.ajax({
+                url: '@Url.Action("GetEmployeeInfoById", "Employee")',
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "JSON",
+                success: function (data) {
+                    //if (obj.status == true) {
+                    console.log(data);
+                    bindDataEmployeeInfo(data);
+                    //loadEmployee();
+                    //empTable.ajax.reload();
+                    //clearData();
+                    //}
+                    // document.getElementById('showMessage').innerHTML = obj.message;
+                }
+            });
+        }
+
+        function bindDataEmployeeInfo(data) {
+            $('#hdfEmployeeId').val(data.EmployeeId);
+            $('#EmployeeName').val(data.EmployeeName);
+            $('#Department').val(data.DepartmentId);
+            loadDesignation(data.DesignationId);
+            if (data.IsActive == true) {
+                $('#IsActive').attr('checked', true);
+            }
+            else {
+                $('#IsActive').attr('checked', false);
+            }
+            if (data.Gender == "Male") {
+                $('#Gender').attr('checked', true);
+            }
+            if (data.Gender == "Female") {
+                $('#Gender').attr('checked', true);
+            }
+            $('#update').show();
+            $('#delete').show();
+            $('#save').hide();
+        }
+
+        function BindDataForUpdate() {
+            var isActive;
+            if ($('#IsActive').prop("checked") === true) {
+                isActive = 1
+            }
+            else {
+                isActive = 0;
+            }
+
+            var data = {
+                EmployeeId: $('#hdfEmployeeId').val(),
+                DepartmentId: $('#Department option:selected').val(),
+                DesignationId: $('#Designation option:selected').val(),
+                EmployeeName: $('#EmployeeName').val(),
+                Gender: $('input[name="Gender"]:checked').val(),
+                IsActive: isActive
+            }
+            return data;
+        }
+
+        $('#update').click(function () {
+            var isValidData = checkValidationForUpdate();
+            if (isValidData) {
+                var data = BindDataForUpdate();
+                $.ajax({
+                    url: '@Url.Action("UpdateEmployee", "Employee")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            //empTable.ajax.reload();
+                            //clearData();
+                            empTable.destroy();
+                            clearData();
+                            loadEmployee();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+        });
+        function checkValidationForUpdate() {
+            var isValid = true;
+            if ($('#hdfEmployeeId').val().trim() === '') {
+                isValid = false;
+                $('#hdfEmployeeId').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#hdfEmployeeId').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#EmployeeName').val().trim() === '') {
+                isValid = false;
+                $('#EmployeeName').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#EmployeeName').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Department').val().trim() === '0') {
+                isValid = false;
+                $('#Department').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Department').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Designation').val().trim() === '0') {
+                isValid = false;
+                $('#Designation').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Designation').parent().find('span').css('visibility', 'hidden');
+            }
+            return isValid;
+        }
+
+        function deleteData(id) {
+            if (confirm("Are u sure ?")) {
+                var data = {
+                    EmployeeId: id
+                };
+                $.ajax({
+                    url: '@Url.Action("DeleteEmployee", "Employee")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            //// empTable.ajax.reload();
+
+                            empTable.destroy();
+                            //clearData();
+                            loadEmployee();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+            return false;
+        }
+        </script>
+    }
+

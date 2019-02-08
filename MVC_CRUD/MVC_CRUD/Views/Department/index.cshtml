@@ -1,0 +1,239 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@section Styles{
+    <style>
+        span.error {
+            display: block;
+            visibility: hidden;
+            color: red;
+            font-weight: bold;
+            font-size: 100%;
+        }
+    </style>
+}
+<h2> Department</h2>
+<hr />
+<label id="showMessage" style="color: red; font-size: medium"></label>
+<div>
+    <input type="hidden" id="hdfDepartmentId">
+    <div class="form-group">
+        <label class="col-form-label">Department Id</label>
+        <input type="text" class="form-control" id="DepartmentId" name="DepartmentId" readonly="readonly">
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Department Name<span class="error">Name Is Required</span></label>
+        <input type="text" class="form-control" id="DepartmentName" name="DepartmentName">
+    </div>
+    <div>
+        <input type="button" id="save" value="Save" class="btn btn-success">
+        <input type="button" id="update" value="Update" class="btn btn-success">
+        <input type="button" id="delete" value="Delete" class="btn btn-success">
+        <input type="button" id="clear" value="Clear" class="btn btn-success">
+    </div>
+</div>
+<hr />
+<div class="tablecontainer table-responsive">
+    <table id="DepartmentTable" class="display" cellspacing="0" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Department Id</th>
+                <th>Department Name</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+    <script>
+
+        $('#save').click(function () {
+
+            var isValidData = checkValidation();
+            if (isValidData) {
+                var data = BindData();
+                $.ajax({
+                    url: '@Url.Action("SaveDepartment","Department")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            deptTable.ajax.reload();
+                            clearData();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+        });
+        function checkValidation() {
+            var isValid = true;
+            if ($('#DepartmentId').val().trim() === '') {
+                isValid = false;
+                $('#DepartmentId').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#DepartmentId').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#DepartmentName').val().trim() === '') {
+                isValid = false;
+                $('#DepartmentName').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#DepartmentName').parent().find('span').css('visibility', 'hidden');
+            }
+            return isValid;
+        }
+        function BindData() {
+            var data = {
+                //must be same as table colomn name from db
+                deptId: $('#DepartmentId').val(),
+                deptName: $('#DepartmentName').val()
+            }
+            return data;
+        }
+        function clearData() {
+
+            $('#update').hide();
+            $('#delete').hide();
+            $('#save').show();
+
+            getMaxDepartmentId();
+
+            $('.form-control').val("");
+
+        }
+
+        var deptTable;
+        $(document).ready(function () {
+            $('#update').hide();
+            $('#delete').hide();
+            document.getElementById('showMessage').innerHTML = '';
+            loadDepartment();
+           getMaxDepartmentId();
+
+        });
+        function getMaxDepartmentId() {
+            $.ajax({
+                url: '@Url.Action("GetMaxDepartmentId", "Department")',
+                type: "get",
+                dataType: "JSON",
+                success: function (obj) {
+                    //must be same as table colomn name from db
+                    $("#DepartmentId").val(obj.deptId);
+                }
+            });
+        }
+
+        function loadDepartment() {
+            deptTable = $('#DepartmentTable').DataTable({
+                "ajax": {
+                    "url": '@Url.Action("GetDepartmentInfo", "Department")',
+                    "type": "get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    //colomn must be same as db table
+                    { "data": "deptId" },
+                    { "data": "deptName" }
+                ]
+            });
+
+            $('#DepartmentTable').on('click', 'tr', function () {
+
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+
+                else {
+                    deptTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+                bindDatadepartmentInfo(deptTable.row(this).data());
+
+            });
+
+        }
+
+        function bindDatadepartmentInfo(data) {
+            //colomn must be same as db table
+            $('#DepartmentId').val(data.deptId);
+            $('#DepartmentName').val(data.deptName);
+            $('#update').show();
+            $('#delete').show();
+            $('#save').hide();
+        }
+
+        $('#clear').click(function () {
+            document.getElementById('showMessage').innerHTML = '';
+            clearData();
+        });
+
+
+        function BindDataForUpdate() {
+            var data = {
+                //colomn must be same as db table
+                deptId: $('#DepartmentId').val(),
+                deptName: $('#DepartmentName').val()
+            }
+            return data;
+        }
+
+        $('#update').click(function () {
+            var isValidData = checkValidation();
+            if (isValidData) {
+                var data = BindDataForUpdate();
+                $.ajax({
+                    url: '@Url.Action("UpdateDepartment","Department")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            deptTable.ajax.reload();
+                            clearData();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+        });
+
+        $('#delete').click(function () {
+            if (confirm("Are you sure ?")) {
+                var data = {
+                    deptId: $("#DepartmentId").val()
+                };
+                $.ajax({
+                    url: '@Url.Action("DeleteDepartment","Department")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            deptTable.ajax.reload();
+                            clearData();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+            return false;
+        });
+
+
+    </script>
+
+   
+}
+
+
+
