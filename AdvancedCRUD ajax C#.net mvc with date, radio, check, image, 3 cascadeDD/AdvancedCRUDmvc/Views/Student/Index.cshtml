@@ -76,8 +76,8 @@
                     <div class="form-group">
                         <label class="col-form-label">Gender</label>
 
-                        <input checked="checked" class="form-check-input" id="Gender" name="Gender" type="radio" value="Male" />Male
-                        <input class="form-check-input" id="Gender" name="Gender" type="radio" value="Female" />Female
+                        <input checked="checked" class="form-check-input" id="male" name="Gender" type="radio" value="Male" />Male
+                        <input class="form-check-input" id="female" name="Gender" type="radio" value="Female" />Female
                     </div>
 
 
@@ -541,27 +541,19 @@
             $("#imgPreview").show();
             $('#hdfStudentId').val(data.StudentPicPath).toString();
             if (data.Status === true) {
-                var $checkbox1 = $('#IsActive');
-                $checkbox1.prop('checked', $checkbox1.val() === data.Status);
 
-
-                //$('#IsActive').attr('checked', true);
-             alert(data.Status + "true");
+                $('#IsActive').prop('checked', 'true');
             }
             else {
 
-                $("#IsActive").is(':checked', function () {
-                    $("#IsActive").attr('value', 'false');
-                });
-
-                $('#IsActive').attr('checked', false);
-                alert(data.Status + "false");
+                $('#IsActive').prop('checked', false);
             }
+
             if (data.Gender === "Male") {
-                $('#Gender').attr('checked', true);
+                $('#male').prop('checked', true);
             }
             if (data.Gender === "Female") {
-                $('#Gender').attr('checked', true);
+                $('#female').prop('checked', true);
             }
             $('#update').show();
             $('#delete').show();
