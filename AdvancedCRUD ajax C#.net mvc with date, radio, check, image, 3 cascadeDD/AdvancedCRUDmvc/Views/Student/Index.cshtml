@@ -1,0 +1,734 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    <style>
+        span.error {
+            display: block;
+            visibility: hidden;
+            color: red;
+            font-weight: bold;
+            font-size: 100%;
+        }
+        .progress { display: none; }
+    </style>
+@Styles.Render("~/Content/cssjqryUi")
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/themes/redmond/jquery-ui.css" rel="stylesheet" />
+   @* https://docs.microsoft.com/en-us/aspnet/ajax/cdn/jquery-ui/cdnjqueryui1114*@
+
+}
+<head>
+  
+
+</head>
+
+<h2> International Student database</h2>
+<hr />
+<label id="showMessage" style="color: red; font-size: medium"></label>
+<div>
+    <form id="fileinfo" enctype="multipart/form-data" method="post" name="fileinfo">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <input type="hidden" id="hdfStudentId">
+                    <div class="form-group">
+                        <label class="col-form-label">Student Id</label>
+                        <input type="text" class="form-control" id="StudentId" name="StudentId" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Student Name<span class="error">* Enter Name</span></label>
+                        <input type="text" class="form-control" id="StudentName" name="StudentName">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Birthday<span class="error">* Enter Birthday</span></label>
+                        <input type="datetime" class="form-control" id="Birthday" name="Birthday">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Country<span class="error">*</span></label>
+                        <select class="form-control" id="Country" name="Country">
+                            <option value="0">select Country</option>
+                            @{
+                                foreach (var info in ViewBag.CountryInfo)
+                                {
+                                    <option value="@info.CountryID">@info.countryName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">State<span class="error">*</span></label>
+                        <select class="form-control" id="State" name="State">
+                            <option value="0">select State</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">District<span class="error">*</span></label>
+                        <select class="form-control" id="District" name="District">
+                            <option value="0">select District</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Is Active</label>
+                        <input checked="checked" class="form-check-input" id="IsActive" name="IsActive" type="checkbox" value="1" />
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Gender</label>
+
+                        <input checked="checked" class="form-check-input" id="Gender" name="Gender" type="radio" value="Male" />Male
+                        <input class="form-check-input" id="Gender" name="Gender" type="radio" value="Female" />Female
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <div style="display:none;">
+                            <img id="image" alt="" src="" class="img-responsive">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="button" id="save" value="Save" class="btn btn-success">
+                        <input type="button" id="update" value="Update" class="btn btn-success">
+                        @*<input type="button" id="delete" value="Delete" class="btn btn-success">*@
+                        <input type="button" id="clear" value="Clear" class="btn btn-success">
+                    </div>
+                </div>
+                    <div class="col-md-6">
+                        <hr />
+
+                        <div id="imgPreview" class="thumbnail" style="display:none">
+                            <img class="img-responsive" id="targetImg" />
+                            <div class="caption">
+                                <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                <span id="description"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Student Picture</label>
+                            <input type="file" class="form-control" id="StudentPicture" name="StudentPicture" accept="image/png, image/jpeg, image/jpg">
+                        </div>
+
+                    </div>
+                   
+            </div>
+        </div>
+
+    </form>
+    </div>
+<hr />
+<div class="tablecontainer table-responsive">
+    <table id="StudentTable" class="display" cellspacing="0" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Student Id</th>
+                <th>Student Name</th>
+                <th>Birthday</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>District</th>
+                <th>Pic</th>
+                <th>Status</th>
+                <th>Gender</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+@section Scripts{
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.min.js"></script>
+  @Scripts.Render("~/bundles/jqueryui")
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+
+    <script>
+
+        var StdTable;
+        $(document).ready(function () {
+            $('#update').hide();
+            $('#delete').hide();
+            document.getElementById('showMessage').innerHTML = '';
+            getMaxStudentId();
+            loadStudent();
+            Imagepreview();
+            datetimepicket();
+
+        });
+        function datetimepicket() {
+            $('input[type=datetime]').datepicker({
+                //dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+        }
+        function Imagepreview() {
+            $("#StudentPicture").change(function () {
+
+                var File = this.files;
+
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+
+            })
+
+
+        }
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#targetImg").attr('src', _file.target.result);
+                    $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                    $("#imgPreview").show();
+
+                }
+
+            }
+
+        }
+
+        var ClearPreview = function () {
+            $("#StudentPicture").val('');
+            $("#description").text('');
+            $("#imgPreview").hide();
+
+        }
+
+        function getMaxStudentId() {
+            $.ajax({
+                url: '@Url.Action("getMaxStudentId", "Student")',
+                type: "get",
+                dataType: "JSON",
+                success: function (obj) {
+                    $("#StudentId").val(obj.stdntId); //stdntId from controller json veriable
+                }
+            });
+        }
+        ////////////////////////////////////////////
+        $('#Country').on('change', function () {
+            loadState(0);
+
+        });
+
+        function loadState(id) {
+            $("#State").empty();
+            var countryId = $('#Country option:selected').val();
+            $.ajax({
+                url: '@Url.Action("GetStateByCountryId", "Student")',
+                type: "POST",
+                data: { countryId: countryId },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $("#State").append('<option value="0">--Select State--</option>');
+                    $.each(data, function (key, value) {
+                        if (value.StateID === id) {
+                            $("#State").append('<option value=' + value.StateID + ' selected>' + value.stateName + '</option>');
+                        } else {
+                            $("#State").append('<option value=' + value.StateID + '>' + value.stateName + '</option>');
+                        }
+
+                    });
+                }
+            });
+
+        }
+        ///////////////////////////////////////////////////////////
+        $('#State').on('change', function () {
+            loadDistrict(0);
+        });
+
+        function loadDistrict(id) {
+            $("#District").empty();
+            var statId = $('#State option:selected').val();
+            $.ajax({
+                url: '@Url.Action("GetDistrictByStateId", "Student")',
+                type: "POST",
+                data: { statId: statId },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $("#District").append('<option value="0">--Select District--</option>');
+                    $.each(data, function (key, value) {
+                        if (value.DistrictID === id) {
+                            $("#District").append('<option value=' + value.DistrictID + ' selected>' + value.districtName + '</option>');
+                        } else {
+                            $("#District").append('<option value=' + value.DistrictID + '>' + value.districtName + '</option>');
+                        }
+
+                    });
+                }
+            });
+        }
+        function loadDistrictforupdate(id) {
+            $("#District").empty();
+            var statId = id;
+            $.ajax({
+                url: '@Url.Action("GetDistrictByStateId", "Student")',
+                type: "POST",
+                data: { statId: statId },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $("#District").append('<option value="0">--Select District--</option>');
+                    $.each(data, function (key, value) {
+                        if (value.DistrictID === id) {
+                            $("#District").append('<option value=' + value.DistrictID + ' selected>' + value.districtName + '</option>');
+                        } else {
+                            $("#District").append('<option value=' + value.DistrictID + '>' + value.districtName + '</option>');
+                        }
+
+                    });
+                }
+            });
+        }
+        //////////////////////////////////////////////////
+        function loadStudent() {
+            StdTable =
+                $('#StudentTable').DataTable({
+                    "ajax": {
+                        "url": '@Url.Action("GetStudentInfo", "Student")',
+                        "type": "get",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "StudentID" },
+                        { "data": "StudentName" },
+                        {
+                            "data": "Birthday", "type": "date ",
+                            "render":function (value) {
+                                if (value === null) return "";
+
+                                var pattern = /Date\(([^)]+)\)/;
+                                var results = pattern.exec(value);
+                                var dt = new Date(parseFloat(results[1]));
+
+                                return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();}
+
+                        },
+                        { "data": "countryName" },
+
+                         { "data": "stateName" },
+                           { "data": "districtName" },
+
+                      { "data": "StudentPicPath", "width": "220px","height":"200px" ,"render": function (data) {
+                          return ' <img src="/AppFile/Images/' + data + '" class="img-responsive"  />';
+                      } },
+                       { "data": "StatusIsActive", "class": "Condition" },
+                       { "data": "Gender" },
+                       {
+                           "data": "StudentID", "width": "50px", "render": function (data) {
+                               return '<a href="#" onClick="editData(' + data + ')">Edit</a>';
+                           }
+                       },
+                        {
+                            "data": "StudentID", "width": "50px", "render": function (data) {
+                                return '<a href="#" onClick="deleteData(' + data + ')">Delete</a>';
+                            }
+                        }
+                    ],
+                    "order": [[0, "desc"]]
+                });
+
+            $('#StudentTable').on('click', 'tr', function () {
+                //console.log(data);
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+
+                else {
+                    StdTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+                // bindDataEmployeeInfo(empTable.row(this).data());
+
+            });
+
+        }
+
+        function clearData() {
+            $('#Country').val(0);
+            $('#State').val(0);
+            $('#District').empty();
+            $('#StudentName').val('');
+            $('#Birthday').val('');
+            $('#StudentPicture').val('');
+            $('#hdfStudentId').val('');
+         
+            $('#update').hide();
+            $('#delete').hide();
+            $('#save').show();
+            ClearPreview();
+            getMaxStudentId();
+
+        }
+        $('#save').click(function ()
+        //var UploadData =function ()
+        {
+
+            var isValidData = checkValidation();
+            if (isValidData) {
+               var data = BindData();
+               
+                //var formData = new FormData();
+                //var fileUpload = $("#StudentPicture").get(0);
+                //var files = fileUpload.files;
+                //formData.append("UploadImage", files[0]);
+
+                $.ajax({
+
+                    @*url: '@Url.Action("SaveStudent", "Student")',*@
+                    url: "/Student/SaveStudent",
+                    type: "POST",
+                    data: data,
+
+                    //data: JSON.stringify(data),
+                    //contentType: "application/json",
+                    //dataType: "JSON",
+
+                    contentType: false,
+                    //cache: false,
+                    processData: false,
+
+                    success: function (obj) {
+                        if (obj.status == true) {
+                           StdTable.destroy();
+                            clearData();
+                            loadStudent();
+
+                        }
+
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+
+
+        });
+
+        function checkValidation() {
+            var isValid = true;
+            if ($('#StudentName').val().trim() === '') {
+                isValid = false;
+                $('#StudentName').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#StudentName').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Birthday').val().trim() === '') {
+                isValid = false;
+                $('#Birthday').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Birthday').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Country').val().trim() === '0') {
+                isValid = false;
+                $('#Country').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Country').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#State').val().trim() === '0') {
+                isValid = false;
+                $('#State').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#State').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#District').val().trim() === '0') {
+                isValid = false;
+                $('#District').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#District').parent().find('span').css('visibility', 'hidden');
+            }
+            return isValid;
+        }
+
+        function BindData() {
+            var isActive;
+            //if ($('#IsActive').prop("checked") === true)
+            if (document.getElementsByName('IsActive')[0].checked)
+
+            {
+                isActive = true;
+            }
+            else {
+                isActive = false;
+            }
+          
+
+            alert(isActive);
+            var formData = new FormData();
+            var fileUpload = $("#StudentPicture").get(0);
+            var files = fileUpload.files;
+            formData.append("UploadImage", files[0]);
+            formData.append("CountryID", $('#Country option:selected').val());
+            formData.append("StateID", $('#State option:selected').val());
+            formData.append("DistrictID", $('#District option:selected').val());
+            formData.append("StudentName", $('#StudentName').val());
+            formData.append("StudentID", $('#StudentId').val());
+            formData.append("Birthday", $('#Birthday').val().toString("d"));
+            formData.append("Gender", $('input[name="Gender"]:checked').val());
+            formData.append("Status", isActive);
+            //alert("Status", $('input[name="IsActive"]:checked').val());
+
+           
+            return formData;
+
+        }
+
+        //clear button
+        $('#clear').click(function () {
+            document.getElementById('showMessage').innerHTML = '';
+            clearData();
+        });
+
+        function editData(id) {
+            //alert(id);
+            var data = { StudentID: id };
+            $.ajax({
+                url: '@Url.Action("GetStudentInfoById", "Student")',
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "JSON",
+                //async: false,
+                //data: data,
+                //contentType: false,
+                //processData: false,
+                success: function (data) {
+                    //if (obj.status == true) {
+                    console.log(data);
+                    bindDataEmployeeInfo(data);
+                    //loadEmployee();
+                    //empTable.ajax.reload();
+                    //clearData();
+                    //}
+                    // document.getElementById('showMessage').innerHTML = obj.message;
+                }
+            });
+        }
+        function bindDataEmployeeInfo(data) {
+            $('#StudentPicture').val('');
+            $('#StudentId').val(data.StudentID);
+            $('#StudentName').val(data.StudentName);
+            $('#Birthday').val(datetimeFormate(data.Birthday));
+            $('#Country').val(data.CountryID);
+            loadState(data.StateID);
+            loadDistrictforupdate(data.StateID);
+         
+            $("#targetImg").attr('src', "/AppFile/Images/" + data.StudentPicPath);
+            $("#imgPreview").show();
+            $('#hdfStudentId').val(data.StudentPicPath).toString();
+            if (data.Status === true) {
+                var $checkbox1 = $('#IsActive');
+                $checkbox1.prop('checked', $checkbox1.val() === data.Status);
+
+
+                //$('#IsActive').attr('checked', true);
+             alert(data.Status + "true");
+            }
+            else {
+
+                $("#IsActive").is(':checked', function () {
+                    $("#IsActive").attr('value', 'false');
+                });
+
+                $('#IsActive').attr('checked', false);
+                alert(data.Status + "false");
+            }
+            if (data.Gender === "Male") {
+                $('#Gender').attr('checked', true);
+            }
+            if (data.Gender === "Female") {
+                $('#Gender').attr('checked', true);
+            }
+            $('#update').show();
+            $('#delete').show();
+            $('#save').hide();
+        }
+
+        function datetimeFormate(data){
+            var dateString = data;
+            var dx = new Date(parseInt(dateString.substr(6)));
+            var dd = dx.getDate();
+            var mm = dx.getMonth() + 1;
+            var yy = dx.getFullYear();
+         
+            if (dd <= 9) {
+                dd = "0" + dd;
+            }
+
+            if (mm <= 9) {
+                mm = "0" + mm;
+            }
+            var displayDate = mm + "/" + dd + "/" + yy;
+           // alert(displayDate);
+            return displayDate;
+         
+        }
+        function BindDataForUpdate() {
+            var isActive;
+            //if ($('#IsActive').prop("checked") === true)
+            if (document.getElementsByName('IsActive')[0].checked) {
+                isActive = true;
+            }
+            else {
+                isActive = false;
+            }
+            var formData = new FormData();
+            var fileUpload = $("#StudentPicture").get(0);
+            var files = fileUpload.files;
+           
+            if ($('#StudentPicture').val() !== '' && $('#hdfStudentId').val() === '') {
+                alert("1 if");
+                formData.append("UploadImage", files[0]);
+            } else if ($('#StudentPicture').val() !== '' && $('#hdfStudentId').val() !== '') {
+                formData.append("UploadImage", files[0]);
+               
+               
+            } else if ($('#StudentPicture').val() === '' && $('#hdfStudentId').val() !== '') {
+                alert("3 if");
+                var f = $('#hdfStudentId').val();
+                alert(f);
+                formData.append("StudentPicPath", f);
+            }
+           
+            formData.append("CountryID", $('#Country option:selected').val());
+            formData.append("StateID", $('#State option:selected').val());
+            formData.append("DistrictID", $('#District option:selected').val());
+            formData.append("StudentName", $('#StudentName').val());
+            formData.append("StudentID", $('#StudentId').val());
+            formData.append("Birthday", $('#Birthday').val().toString("d"));
+            formData.append("Gender", $('input[name="Gender"]:checked').val());
+            formData.append("Status", isActive);
+            //alert( $('input[name="IsActive"]:checked').val());
+
+
+            return formData;
+        }
+
+        $('#update').click(function () {
+            var isValidData = checkValidationForUpdate();
+            if (isValidData) {
+                var data = BindDataForUpdate();
+                
+                $.ajax({
+                  
+                    url: "/Student/UpdateStudent",
+                    type: "POST",
+                    data: data,
+                    contentType: false,
+                    //cache: false,
+                    processData: false,
+                   // type: "POST",
+                    
+                    //data: JSON.stringify(data),
+                    //contentType: "application/json",
+                    //dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            //empTable.ajax.reload();
+                            clearData();
+                            StdTable.destroy();
+                            clearData();
+                            loadStudent();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+        });
+        function checkValidationForUpdate() {
+            var isValid = true;
+            //if ($('#hdfStudentId').val().trim() === '') {
+            //    isValid = false;
+            //    $('#hdfStudentId').parent().find('span').css('visibility', 'visible');
+            //}
+            //else {
+            //    $('#hdfStudentId').parent().find('span').css('visibility', 'hidden');
+            //}
+            if ($('#StudentName').val().trim() === '') {
+                isValid = false;
+                $('#StudentName').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#StudentName').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Birthday').val().trim() === '') {
+                isValid = false;
+                $('#Birthday').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Birthday').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#Country').val().trim() === '0') {
+                isValid = false;
+                $('#Country').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Country').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#State').val().trim() === '0') {
+                isValid = false;
+                $('#State').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#State').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#District').val().trim() === '0') {
+                isValid = false;
+                $('#District').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#District').parent().find('span').css('visibility', 'hidden');
+            }
+            return isValid;
+        }
+        function deleteData(id) {
+            if (confirm("Are you sure ?")) {
+                var data = {
+                    StudentID: id
+                };
+                $.ajax({
+                    url: '@Url.Action("DeleteStudent", "Student")',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            //// empTable.ajax.reload();
+
+                            StdTable.destroy();
+                            //clearData();
+                            loadStudent();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+            return false;
+        }
+</script>
+    }
